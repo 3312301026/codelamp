@@ -20,7 +20,7 @@
 
         <!-- Navigasi -->
         <nav class="flex-1 px-4 space-y-2 mt-4">
-            <a href="#" class="flex items-center gap-2 py-2 px-4 rounded hover:bg-gray-700">
+            <a href="/Siswa/dashboard" class="flex items-center gap-2 py-2 px-4 rounded hover:bg-gray-700">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" stroke="white" stroke-width="2"
                     viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round">
                     <rect width="7" height="9" x="3" y="3" rx="1"></rect>
@@ -30,7 +30,7 @@
                 </svg>
                 <span>Dashboard</span>
             </a>
-            <a href="#" class="flex items-center gap-2 py-2 px-4 rounded hover:bg-gray-700">
+            <a href="/Siswa/profil" class="flex items-center gap-2 py-2 px-4 rounded hover:bg-gray-700">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" stroke="white" stroke-width="2"
                     viewBox="0 0 24 24">
                     <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"></path>
@@ -38,7 +38,7 @@
                 </svg>
                 <span>Profil</span>
             </a>
-            <a href="#" class="flex items-center gap-2 py-2 px-4 rounded hover:bg-gray-700">
+            <a href="/Siswa/kursus" class="flex items-center gap-2 py-2 px-4 rounded hover:bg-gray-700">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" stroke="white" stroke-width="2"
                     viewBox="0 0 24 24">
                     <path d="M10 2v8l3-3 3 3V2"></path>
@@ -47,7 +47,7 @@
                 </svg>
                 <span>Kursus</span>
             </a>
-            <a href="#" class="flex items-center gap-2 py-2 px-4 rounded hover:bg-gray-700">
+            <a href="/Siswa/pembayaran" class="flex items-center gap-2 py-2 px-4 rounded hover:bg-gray-700">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" stroke="white" stroke-width="2"
                     viewBox="0 0 24 24">
                     <rect width="20" height="14" x="2" y="5" rx="2"></rect>

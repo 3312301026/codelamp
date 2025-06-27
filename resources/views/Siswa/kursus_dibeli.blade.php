@@ -10,8 +10,7 @@
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             <div class="bg-white rounded-lg shadow-md overflow-hidden">
                 <div class="relative">
-                    <img src="https://via.placeholder.com/300x150/4A5568/EDF2F7?Text=English+Course" alt="Gambar Kursus"
-                        class="w-full h-32 object-cover">
+                    <img src="{{ asset('gambar/gambar1.jpg') }}" alt="Course Image" class="w-full h-48 object-cover">
                     <div class="absolute top-2 left-2 bg-yellow-400 text-white text-sm font-semibold px-3 py-1 rounded">70%
                     </div>
                 </div>
@@ -27,8 +26,7 @@
 
             <div class="bg-white rounded-lg shadow-md overflow-hidden">
                 <div class="relative">
-                    <img src="https://via.placeholder.com/300x150/4A5568/EDF2F7?Text=English+Course" alt="Gambar Kursus"
-                        class="w-full h-32 object-cover">
+                    <img src="{{ asset('gambar/gambar2.jpg') }}" alt="Course Image" class="w-full h-48 object-cover">
                     <div class="absolute top-2 left-2 bg-yellow-400 text-white text-sm font-semibold px-3 py-1 rounded">50%
                     </div>
                 </div>
@@ -44,8 +42,7 @@
 
             <div class="bg-white rounded-lg shadow-md overflow-hidden">
                 <div class="relative">
-                    <img src="https://via.placeholder.com/300x150/4A5568/EDF2F7?Text=English+Course" alt="Gambar Kursus"
-                        class="w-full h-32 object-cover">
+                    <img src="{{ asset('gambar/gambar3.jpg') }}" alt="Course Image" class="w-full h-48 object-cover">
                     <div class="absolute top-2 left-2 bg-green-500 text-white text-sm font-semibold px-3 py-1 rounded">100%
                     </div>
                 </div>

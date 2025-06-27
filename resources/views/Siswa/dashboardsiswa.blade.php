@@ -13,14 +13,14 @@
     <!-- Sidebar -->
     <aside class="w-64 bg-[#0E1212] text-white flex flex-col">
         <!-- Header Sidebar -->
-<div class="flex items-center justify-start space-x-2 px-6 py-3 bg-white">
-    <span class="font-bold text-lg" style="color:#F5B40D;">CodeLamp</span>
-    <img src="{{ asset('gambar/logo1.png') }}" alt="Logo" class="h-8 object-contain">
-</div>
+        <div class="flex items-center justify-start space-x-2 px-6 py-3 bg-white">
+            <span class="font-bold text-lg" style="color:#F5B40D;">CodeLamp</span>
+            <img src="{{ asset('gambar/logo1.png') }}" alt="Logo" class="h-8 object-contain">
+        </div>
 
         <!-- Navigasi -->
         <nav class="flex-1 px-4 space-y-2 mt-4">
-            <a href="#" class="flex items-center gap-2 py-2 px-4 rounded hover:bg-gray-700">
+            <a href="/Siswa/dashboard" class="flex items-center gap-2 py-2 px-4 rounded hover:bg-gray-700">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" stroke="white" stroke-width="2"
                     viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round">
                     <rect width="7" height="9" x="3" y="3" rx="1"></rect>
@@ -30,7 +30,7 @@
                 </svg>
                 <span>Dashboard</span>
             </a>
-            <a href="#" class="flex items-center gap-2 py-2 px-4 rounded hover:bg-gray-700">
+            <a href="/Siswa/profil" class="flex items-center gap-2 py-2 px-4 rounded hover:bg-gray-700">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" stroke="white" stroke-width="2"
                     viewBox="0 0 24 24">
                     <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"></path>
@@ -38,7 +38,7 @@
                 </svg>
                 <span>Profil</span>
             </a>
-            <a href="#" class="flex items-center gap-2 py-2 px-4 rounded hover:bg-gray-700">
+            <a href="/Siswa/kursus" class="flex items-center gap-2 py-2 px-4 rounded hover:bg-gray-700">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" stroke="white" stroke-width="2"
                     viewBox="0 0 24 24">
                     <path d="M10 2v8l3-3 3 3V2"></path>
@@ -47,7 +47,7 @@
                 </svg>
                 <span>Kursus</span>
             </a>
-            <a href="#" class="flex items-center gap-2 py-2 px-4 rounded hover:bg-gray-700">
+            <a href="/Siswa/pembayaran" class="flex items-center gap-2 py-2 px-4 rounded hover:bg-gray-700">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" stroke="white" stroke-width="2"
                     viewBox="0 0 24 24">
                     <rect width="20" height="14" x="2" y="5" rx="2"></rect>
@@ -70,13 +70,16 @@
     <!-- Main Content -->
     <div class="flex-1 flex flex-col">
         <!-- Navbar Atas -->
-        <header class="bg-[#FDB813] px-6 py-4 flex items-center justify-end">
-            <div class="w-10 h-10 rounded-full border-2 border-black flex items-center justify-center">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-black" fill="none" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                        d="M5.121 17.804A13.937 13.937 0 0112 15c3.042 0 5.824 1.007 8.121 2.804M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+        <header class="bg-[#FDB813] p-4 flex justify-between items-center">
+            <!-- <h1 class="text-white text-lg">Kursus</h1> -->
+            <button aria-label="Menu">
+                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="none" viewBox="0 0 24 24"
+                    stroke="black">
+                    <path d="M3 6h18M3 12h18M3 18h18" stroke-width="2" stroke-linecap="round" />
                 </svg>
-            </div>
+            </button>
+
+            <div class="text-white">👤</div>
         </header>
 
         <!-- Konten Utama -->
@@ -93,7 +96,8 @@
 
             <!-- Leaderboard -->
             <div class="flex justify-center mt-6">
-                <div class="w-[1086px] h-[270px] rounded-[10px] flex items-center justify-center relative overflow-hidden shadow-xl bg-[radial-gradient(circle_at_center,_#FFFFFF,_#0E1822)]">
+                <div
+                    class="w-[1086px] h-[270px] rounded-[10px] flex items-center justify-center relative overflow-hidden shadow-xl bg-[radial-gradient(circle_at_center,_#FFFFFF,_#0E1822)]">
                     <div class="absolute inset-0 flex flex-col items-center justify-center pointer-events-none z-0">
                         <h2 class="text-yellow-400 font-bold text-lg mb-2">Skor tertinggi</h2>
                         <img src="/images/logo.png" alt="Logo" class="w-24 opacity-30" />
@@ -122,22 +126,23 @@
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-10">
                 <!-- Ulangi contoh kartu kursus -->
                 @for ($i = 0; $i < 3; $i++)
-                @php
-                    $gambar = ['gambar3.jpg','gambar2.jpg','DBS Decoding.png'];
-                @endphp
-                <div class="bg-white rounded-2xl overflow-hidden shadow-lg">
-                    <img src="{{ asset('gambar/' . $gambar[$i]) }}" alt="Course Image" class="w-full h-40 object-cover">
-                    <div class="p-4">
-                        <h3 class="text-lg font-bold mb-1">Bahasa Inggris Sehari-hari untuk Percakapan</h3>
-                        <p class="text-sm text-gray-600 mb-2">Arpend, S.Pd</p>
-                        <p class="text-yellow-500 font-semibold mb-2">Rp. 240.000,-</p>
-                        <div class="text-center">
-                            <span class="inline-block bg-yellow-400 text-white px-4 py-1 rounded-full text-sm font-semibold">
-                                36 Siswa
-                            </span>
+                    @php
+                        $gambar = ['gambar3.jpg', 'gambar2.jpg', 'DBS Decoding.png'];
+                    @endphp
+                    <div class="bg-white rounded-2xl overflow-hidden shadow-lg">
+                        <img src="{{ asset('gambar/' . $gambar[$i]) }}" alt="Course Image" class="w-full h-40 object-cover">
+                        <div class="p-4">
+                            <h3 class="text-lg font-bold mb-1">Bahasa Inggris Sehari-hari untuk Percakapan</h3>
+                            <p class="text-sm text-gray-600 mb-2">Arpend, S.Pd</p>
+                            <p class="text-yellow-500 font-semibold mb-2">Rp. 240.000,-</p>
+                            <div class="text-center">
+                                <span
+                                    class="inline-block bg-yellow-400 text-white px-4 py-1 rounded-full text-sm font-semibold">
+                                    36 Siswa
+                                </span>
+                            </div>
                         </div>
                     </div>
-                </div>
                 @endfor
             </div>
         </div>
