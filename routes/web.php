@@ -26,9 +26,9 @@ Route::get('/', function () {
     return view('homepage');
 });
 
-Route::prefix('murid')->group(function () {
+Route::prefix('Siswa')->group(function () {
     Route::get('/dashboard', function () {
-        return view('dashboardMurid');
+        return view('dashboardSiswa');
     });
 });
 
@@ -68,12 +68,15 @@ Route::prefix('Siswa')->group(function () {
     });
     Route::get('/profil', function () {
         return view('Siswa/profil');
-    });
+        });
+    Route::get('/sandi', function () {
+        return view('Siswa/ganti_sandi');
+        });
     Route::get('/dibeli', function () {
         return view('Siswa/kursus_dibeli');
     });
-    Route::get('/detail_data', function () {
-        return view('Siswa/detail_data');
+    Route::get('/detail_kursus', function () {
+        return view('Siswa/detail_Kursus');
     });
     Route::get('/pembayaran', function () {
         return view('Siswa/pembayaran');
