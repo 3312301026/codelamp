@@ -11,27 +11,31 @@
     </div>
 
     <div class="w-full px-6">
-        <div class="w-full bg-white shadow-md p-6 rounded-[5px]">
-           <div class="text-[#0E1212] text-[20px] font-normal leading-[30px] mb-1">
+       <div class="w-full bg-white shadow-md p-6 rounded-[5px]">
+            <div class="text-[#0E1212] text-[20px] font-normal leading-[30px] mb-1">
                 Kursus
             </div>
             <div class="text-[#9197A0] text-[14px] font-normal leading-[24px] mb-2">
                 Daftar Semua Kursus
             </div>
 
+            <!-- Header Kontrol -->
             <div class="flex justify-between items-center mb-6">
-                <div class="text-[#0E1212] text-[14px] font-normal leading-[24px]">
-                    Tambahkan konten baru anda di sini
-                </div>
+                <!-- Kiri: Teks + Tombol -->
                 <div class="flex items-center gap-4">
+                    <div class="text-[#0E1212] text-[14px] font-normal leading-[24px]">
+                        Tambahkan konten baru anda di sini
+                    </div>
                     <a href="{{ route('admin.kursus.create') }}"
-                        class="inline-block w-[150px] h-[40px] bg-[#F5B40D] text-white text-sm rounded-[5px] border border-[#F5B40D] hover:bg-[#e6a900] transition text-center leading-[40px]">
+                        class="w-[150px] h-[40px] bg-[#F5B40D] text-white text-sm rounded-[5px] border border-[#F5B40D] hover:bg-[#e6a900] transition text-center leading-[40px]">
                         Tambahkan
                     </a>
-                    <input type="text"
-                        class="w-[333px] h-[50px] border border-gray-300 rounded-sm px-4 text-[16px] leading-[24px] text-[#9197A0] focus:outline-none focus:ring-2 focus:ring-yellow-400"
-                        placeholder="Search">
                 </div>
+
+                <!-- Kanan: Search -->
+                <input type="text"
+                    class="w-[333px] h-[50px] border border-gray-300 rounded-sm px-4 text-[16px] leading-[24px] text-[#9197A0] focus:outline-none focus:ring-2 focus:ring-yellow-400"
+                    placeholder="Search">
             </div>
 
             <table class="w-full border-collapse text-black">

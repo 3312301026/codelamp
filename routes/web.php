@@ -124,6 +124,11 @@ Route::prefix('admin')->name('admin.')->group(function () {
     Route::get('/kursus/{id}/edit', [AdminController::class, 'editKursus'])->name('kursus.edit');
     Route::put('/kursus/{id}', [AdminController::class, 'updateKursus'])->name('kursus.update');
     Route::delete('/kursus/{id}', [AdminController::class, 'destroyKursus'])->name('kursus.destroy');
+
+    // Pembayaran (dummy sementara)
+    Route::get('/pembayaran', function () {
+        return view('admin.pembayaran');
+    })->name('pembayaran');
 });
 
 // =====================================================
