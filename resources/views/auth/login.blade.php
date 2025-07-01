@@ -13,14 +13,10 @@
 
     <div class="bg-white p-8 rounded-2xl shadow-2xl w-full max-w-md animate-fade-in">
         <div class="text-center mb-6">
-            <h1 class="text-3xl font-bold text-yellow-500 flex items-center justify-center">
-                CodeLamp
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7 ml-2" fill="none" viewBox="0 0 24 24"
-                    stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                        d="M12 2a7 7 0 017 7c0 4-5 9-7 11-2-2-7-7-7-11a7 7 0 017-7zm0 10a3 3 0 100-6 3 3 0 000 6z" />
-                </svg>
-            </h1>
+              <div class="flex items-center justify-center space-x-2 px-6 py-3 bg-white">
+                <span class="font-bold text-3xl" style="color:#F5B40D;">CodeLamp</span>
+                <img src="{{ asset('gambar/logo1.png') }}" alt="Logo" class="h-8 object-contain">
+            </div>
             <p class="text-sm text-gray-600 mt-2">Silahkan Login</p>
         </div>
 
@@ -82,6 +78,7 @@
                 opacity: 0;
                 transform: translateY(10px);
             }
+
             to {
                 opacity: 1;
                 transform: translateY(0);

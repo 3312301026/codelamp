@@ -2,16 +2,16 @@
 
 @section('content')
 <div class="p-6 bg-white min-h-screen">
+    <!-- Judul -->
+    <div class="flex items-center mb-1">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-2 text-gray-700" fill="none"
+            viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round"
+                d="M5.121 17.804A13.937 13.937 0 0112 15c3.042 0 5.824 1.007 8.121 2.804M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+        </svg>
+        <h2 class="text-xl font-semibold">Profil</h2>
+    </div>
     <div class="bg-white rounded shadow-lg p-6">
-        <!-- Judul -->
-        <div class="flex items-center mb-1">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-2 text-gray-700" fill="none"
-                viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                <path stroke-linecap="round" stroke-linejoin="round"
-                    d="M5.121 17.804A13.937 13.937 0 0112 15c3.042 0 5.824 1.007 8.121 2.804M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-            </svg>
-            <h2 class="text-xl font-semibold">Profil</h2>
-        </div>
         
 
         <p class="text-sm text-gray-500 mb-4 uppercase">Data Diri Anda</p>

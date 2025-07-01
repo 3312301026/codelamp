@@ -1,11 +1,15 @@
 @extends('layouts.sidebar')
 
 @section('content')
+    <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
         integrity="sha512-/vXstFwS3N3tBi0bQh+Y6axhHEuAiDWnqzNQch2t2OdZb3AStRbLwT3xgPvU1O4JUL93gOAzY0bUrKIsw9d4Jw=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
 
-    <div class="content-area bg-white flex-1 p-6 overflow-y-auto">
+    <!-- Alpine.js -->
+    <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
+
+    <div class="content-area bg-white flex-1 p-6 overflow-y-auto" x-data="{ show: false, detail: {} }">
         <header class="top-bar flex items-center justify-between mb-4 p-2 rounded-md">
             <div class="flex items-center">
                 <button class="text-gray-500 mr-3 focus:outline-none">
@@ -41,71 +45,86 @@
                     <table class="min-w-full divide-y divide-gray-200">
                         <thead class="bg-gray-50">
                             <tr>
-                                <th scope="col"
-                                    class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                    No</th>
-                                <th scope="col"
-                                    class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                    Tanggal</th>
-                                <th scope="col"
-                                    class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                    Nama Kursus</th>
-                                <th scope="col"
-                                    class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                    Nama Instruktur</th>
-                                <th scope="col"
-                                    class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                    Harga</th>
-                                <th scope="col"
-                                    class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                    Metode Pembayaran</th>
-                                <th scope="col"
-                                    class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                    Status</th>
-                                <th scope="col"
-                                    class="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                    Tindakan</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">No</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Tanggal</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Nama Kursus</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Nama Instruktur</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Harga</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Metode Pembayaran</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
+                                <th class="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">Tindakan</th>
                             </tr>
                         </thead>
                         <tbody class="bg-white divide-y divide-gray-200">
                             @forelse($transaksis as $index => $transaksi)
-                                            <tr>
-                                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ $index + 1 }}</td>
-                                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                                    {{ \Carbon\Carbon::parse($transaksi->tanggal_transaksi)->format('d/m/y') }}</td>
-                                                <td class="px-6 py-4 text-sm text-gray-800">{{ $transaksi->kursus->judul_kursus ?? '-' }}
-                                                </td>
-                                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-800">
-                                                    {{ $transaksi->kursus->instruktur->name ?? '-' }}</td>
-                                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-800">Rp
-                                                    {{ number_format($transaksi->kursus->harga_kursus ?? 0, 0, ',', '.') }}</td>
-                                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-800">
-                                                    {{ $transaksi->metode_pembayaran ?? 'Virtual Account' }}</td>
-                                                <td
-                                                    class="px-6 py-4 whitespace-nowrap text-sm 
-                                {{ $transaksi->status == 'berhasil' ? 'text-green-500' : ($transaksi->status == 'tertunda' ? 'text-yellow-500' : 'text-red-500') }}">
-                                                    {{ ucfirst($transaksi->status) }}
-                                                </td>
-                                                <td class="px-6 py-4 whitespace-nowrap text-center text-sm">
-                                                    <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-2 rounded-l">
-                                                        <i class="fas fa-eye"></i>
-                                                    </button>
-                                                    <button class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-2 rounded-r">
-                                                        <i class="fas fa-trash-alt"></i>
-                                                    </button>
-                                                </td>
-                                            </tr>
+                                <tr>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ $index + 1 }}</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                        {{ \Carbon\Carbon::parse($transaksi->tanggal_transaksi)->format('d/m/Y') }}
+                                    </td>
+                                    <td class="px-6 py-4 text-sm text-gray-800">{{ $transaksi->kursus->judul_kursus ?? '-' }}</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-800">
+                                        {{ $transaksi->kursus->instruktur->name ?? '-' }}
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-800">
+                                        Rp {{ number_format($transaksi->kursus->harga_kursus ?? 0, 0, ',', '.') }}
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-800">
+                                        {{ $transaksi->metode_pembayaran ?? 'Virtual Account' }}
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm 
+                                        {{ $transaksi->status == 'berhasil' ? 'text-green-500' : ($transaksi->status == 'tertunda' ? 'text-yellow-500' : 'text-red-500') }}">
+                                        {{ ucfirst($transaksi->status) }}
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-center text-sm">
+                                        <button 
+                                            class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-2 rounded-l"
+                                            @click="show = true; detail = {
+                                                tanggal: '{{ \Carbon\Carbon::parse($transaksi->tanggal_transaksi)->format('d/m/Y') }}',
+                                                kursus: '{{ $transaksi->kursus->judul_kursus ?? '-' }}',
+                                                instruktur: '{{ $transaksi->kursus->instruktur->name ?? '-' }}',
+                                                harga: 'Rp {{ number_format($transaksi->kursus->harga_kursus ?? 0, 0, ',', '.') }}',
+                                                metode: '{{ $transaksi->metode_pembayaran ?? 'Virtual Account' }}',
+                                                status: '{{ ucfirst($transaksi->status) }}'
+                                            }"
+                                        >
+                                            <i class="fas fa-eye"></i>
+                                        </button>
+                                        <button class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-2 rounded-r">
+                                            <i class="fas fa-trash-alt"></i>
+                                        </button>
+                                    </td>
+                                </tr>
                             @empty
                                 <tr>
                                     <td colspan="8" class="text-center text-gray-500 py-4">Tidak ada catatan transaksi.</td>
                                 </tr>
                             @endforelse
                         </tbody>
-
                     </table>
                 </div>
             </div>
+
+            <!-- MODAL DETAIL -->
+            <div 
+                x-show="show" 
+                x-cloak 
+                class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
+                <div class="bg-white rounded-lg shadow-lg p-6 w-full max-w-lg relative">
+                    <button @click="show = false" class="absolute top-2 right-2 text-gray-500 hover:text-gray-800">
+                        <i class="fas fa-times"></i>
+                    </button>
+                    <h2 class="text-xl font-semibold mb-4">Detail Pembayaran</h2>
+                    <div class="text-sm space-y-2">
+                        <p><strong>Tanggal:</strong> <span x-text="detail.tanggal"></span></p>
+                        <p><strong>Nama Kursus:</strong> <span x-text="detail.kursus"></span></p>
+                        <p><strong>Instruktur:</strong> <span x-text="detail.instruktur"></span></p>
+                        <p><strong>Harga:</strong> <span x-text="detail.harga"></span></p>
+                        <p><strong>Metode Pembayaran:</strong> <span x-text="detail.metode"></span></p>
+                        <p><strong>Status:</strong> <span x-text="detail.status"></span></p>
+                    </div>
+                </div>
+            </div>
         </main>
-    </div>
     </div>
 @endsection
