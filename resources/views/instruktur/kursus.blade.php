@@ -10,8 +10,8 @@
         <span class="text-[18px] text-[#0E1212] font-bold leading-[30px]">Mengelola Kursus</span>
     </div>
 
-    <div class="flex justify-center">
-        <div class="max-w-[1431px] w-full bg-white shadow-md p-6 rounded-[5px]">
+     <div class="w-full px-6">
+        <div class="w-full bg-white shadow-md p-6 rounded-[5px]">
             <div class="text-[#0E1212] text-[20px] font-normal leading-[30px] mb-1">
                 Kursus
             </div>

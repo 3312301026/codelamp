@@ -12,14 +12,14 @@
 </div>
 
 <!-- Card Utama -->
-<div class="flex justify-center">
-    <div class="w-full max-w-[1431px] bg-white shadow-md p-6 rounded-[5px]">
+ <div class="w-full px-6">
+    <div class="w-full bg-white shadow-md p-6 rounded-[5px]">
         <!-- Judul -->
         <div class="text-[20px] text-[#0E1212] font-normal mb-1">Mengedit kursus</div>
         <div class="text-[14px] text-[#9197A0] font-normal mb-6">DATA DASAR KURSUS</div>
 
         <!-- Form -->
-        <form action="{{ route('instruktur.kursus.update', $kursus->id_kursus) }}" method="POST"
+        <form action="{{ route('instruktur.kursus.update', $kursus->id) }}" method="POST"
             enctype="multipart/form-data" class="space-y-4">
             @csrf
             @method('PUT')

@@ -100,10 +100,15 @@ Route::prefix('instruktur')->middleware(['auth', 'checkRole:instruktur'])->group
 // =====================================================
 // 🧑‍💼 Routes untuk Admin
 // =====================================================
-Route::prefix('admin')->middleware(['auth', 'checkRole:admin'])->group(function () {
+Route::prefix('admin')->group(function () {
     Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
-
     Route::get('/pengguna', [AdminController::class, 'listUsers'])->name('admin.users');
+    Route::get('/pengguna/tambah', [AdminController::class, 'createInstruktur'])->name('admin.instruktur.create');
+    Route::post('/pengguna/tambah', [AdminController::class, 'storeInstruktur'])->name('admin.instruktur.store');
+    Route::get('/pengguna/{id}/detail', [AdminController::class, 'detailInstruktur'])->name('admin.instruktur.detail');
+    Route::get('/admin/pengguna/{id}/edit', [AdminController::class, 'editInstruktur'])->name('admin.instruktur.edit');
+    Route::put('/admin/pengguna/{id}', [AdminController::class, 'updateInstruktur'])->name('admin.instruktur.update');
+    Route::delete('/admin/pengguna/{id}', [AdminController::class, 'destroyInstruktur'])->name('admin.instruktur.destroy');
     Route::get('/kursus', [AdminController::class, 'listKursus'])->name('admin.kursus');
 });
 

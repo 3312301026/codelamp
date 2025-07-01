@@ -33,10 +33,15 @@ class InstrukturController extends Controller
     public function profil()
     {
         $user = Auth::user();
-        $detail = $user->instrukturDetail ?? new InstrukturDetail;
+        $detail = $user->instrukturDetail ?? new \App\Models\InstrukturDetail;
 
-        return view('instruktur.profil', compact('user', 'detail'));
+        return view('instruktur.profil', [
+            'user' => $user,
+            'detail' => $detail,
+            'mode' => 'instruktur', 
+        ]);
     }
+
 
     // Update profil
     public function updateProfil(Request $request)
