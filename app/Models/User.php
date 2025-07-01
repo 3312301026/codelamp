@@ -2,44 +2,64 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Notifications\Notifiable;
-use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable;
+    use HasFactory, Notifiable;
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array<int, string>
-     */
+    // Tabel dan primary key
+    protected $table = 'users';
+    protected $primaryKey = 'id';
+
+    // Kolom yang bisa diisi
     protected $fillable = [
-        'name',
+        'name',             // sesuai migration
+        'nomor_hp',
+        'role',             // admin / instruktur / siswa
         'email',
         'password',
+        'email_verified_at',
     ];
 
-    /**
-     * The attributes that should be hidden for serialization.
-     *
-     * @var array<int, string>
-     */
+    // Kolom yang harus disembunyikan saat serialisasi
     protected $hidden = [
         'password',
         'remember_token',
     ];
 
-    /**
-     * The attributes that should be cast.
-     *
-     * @var array<string, string>
-     */
+    // Kolom bertipe datetime
     protected $casts = [
         'email_verified_at' => 'datetime',
-        'password' => 'hashed',
     ];
+
+    // Relasi ke model lain (jika ada)
+    public function transaksis()
+    {
+        return $this->hasMany(Transaksi::class);
+    }
+
+    public function pertanyaans()
+    {
+        return $this->hasMany(Pertanyaan::class);
+    }
+
+    public function kursus()
+    {
+        return $this->belongsToMany(Kursus::class, 'kursus_siswa')
+            ->withPivot('skor', 'status', 'tanggal_masuk')
+            ->withTimestamps();
+    }
+
+    public function kursusSiswa()
+    {
+        return $this->hasMany(KursusSiswa::class);
+    }
+
+    public function instrukturDetail()
+    {
+        return $this->hasOne(InstrukturDetail::class, 'user_id');
+    }
 }

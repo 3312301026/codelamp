@@ -11,20 +11,47 @@ class Kursus extends Model
 
     protected $table = 'kursus';
 
-    protected $primaryKey = 'id_kursus';
-
     protected $fillable = [
         'tgl_pembuatan',
         'judul_kursus',
-        'instruktur',
+        'instruktur_id',   // perbaikan: ini adalah foreign key
         'kategori',
         'harga_kursus',
         'status',
-        'cover',        // field untuk foto cover
-        'vidio',        // field untuk video kursus
-        'jumlah_siswa', // field jumlah siswa
-        'deskripsi',    // field deskripsi kursus
+        'cover',
+        'vidio',
+        'jumlah_siswa',
+        'deskripsi',
     ];
 
     public $timestamps = true;
+
+    public function instruktur()
+    {
+        return $this->belongsTo(User::class, 'instruktur_id');
+    }
+
+    public function siswa()
+    {
+        return $this->belongsToMany(User::class, 'kursus_siswa', 'kursus_id', 'siswa_id')
+            ->withPivot('skor', 'status', 'tanggal_masuk')
+            ->withTimestamps();
+    }
+
+
+    public function kursusSiswa()
+    {
+        return $this->hasMany(KursusSiswa::class);
+    }
+
+    public function tujuan()
+    {
+        return $this->hasMany(TujuanKursus::class);
+    }
+
+    public function materi()
+    {
+        return $this->hasMany(MateriKursus::class);
+    }
+    
 }

@@ -11,10 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('kursus', function (Blueprint $table) {
-    $table->string('instruktur')->after('judul_kursus');
-});
-
+        Schema::table('transaksi', function (Blueprint $table) {
+            $table->string('bukti_pembayaran')->nullable();
+        });
     }
 
     /**
@@ -22,8 +21,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('kursus', function (Blueprint $table) {
-            $table->string('instruktur')->after('judul_kursus');
+        Schema::table('pembayaran', function (Blueprint $table) {
+            //
         });
     }
 };

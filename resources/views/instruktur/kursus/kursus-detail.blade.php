@@ -2,117 +2,118 @@
 @section('title', 'Detail Kursus')
 
 @section('content')
-<!-- Header -->
-<div class="flex items-center gap-2 mb-4">
-    <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="#0E1212"
-        stroke-width="2">
-        <path stroke-linecap="round" stroke-linejoin="round" d="M9 9h10M9 14h10" />
-    </svg>
-    <span class="text-[18px] font-bold text-[#0E1212] leading-[30px]">Mengelola Kursus</span>
-</div>
+<div class="mb-6">
+    <!-- Header -->
+    <div class="flex items-center gap-2 mb-6">
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-[#0E1212]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M9 9h10M9 14h10" />
+        </svg>
+        <h1 class="text-xl font-semibold text-[#0E1212]">Mengelola Kursus</h1>
+    </div>
 
-<!-- Card Utama -->
-<div class="flex justify-center">
-    <div class="w-full max-w-[1431px] bg-white shadow-md p-6 rounded-[5px]">
-        <!-- Judul (ambil dari $kursus->judul_kursus) -->
-        <div class="text-[20px] text-[#0E1212] font-bold mb-1">
-            {{ $kursus->judul_kursus }}
+    <!-- Card Container -->
+    <div class="bg-white shadow rounded-xl p-6 space-y-8">
+        <!-- Header Info -->
+        <div>
+            <h2 class="text-2xl font-bold text-gray-800">{{ $kursus->judul_kursus }}</h2>
+            <p class="text-sm text-gray-500">Kategori: {{ $kursus->kategori }}</p>
+            <p class="text-sm text-gray-500">Instruktur: {{ $kursus->instruktur->name ?? 'Instruktur tidak ditemukan' }}</p>
         </div>
 
-        <!-- Kategori (ambil dari $kursus->kategori) -->
-        <div class="text-[15px] text-[#000000] font-normal mb-1">
-            Kategori {{ $kursus->kategori }}
-        </div>
-
-        <!-- Instruktur (ambil dari $kursus->instruktur) -->
-        <div class="text-[15px] text-[#000000] font-normal mb-6">
-            {{ $kursus->instruktur }}
-        </div>
-
-        <!-- Kontainer 2 Kolom -->
-        <div class="flex flex-col lg:flex-row gap-6 mb-8">
-            <!-- KIRI: CARD COVER & DESKRIPSI -->
-            <div class="w-[943px] h-[697px] bg-white border rounded shadow overflow-hidden">
+        <!-- Media & Info -->
+        <div class="flex flex-col lg:flex-row gap-6">
+            <!-- Video + Deskripsi -->
+            <div class="flex-1 bg-gray-100 rounded-lg overflow-hidden shadow">
                 <!-- Video -->
-                <div class="w-full h-[400px] overflow-hidden bg-black flex items-center justify-center">
-                    @if ($kursus->vidio_kursus)
-                    <video controls class="w-full h-full object-cover">
-                        <source src="{{ asset('uploads/vidios/' . $kursus->vidio_kursus) }}" type="video/mp4">
-                        Browser Anda tidak mendukung pemutaran video.
-                    </video>
+                <div class="w-full aspect-video bg-black flex items-center justify-center">
+                    @if ($kursus->vidio)
+                        <video controls class="w-full h-full object-contain">
+                            <source src="{{ asset('uploads/videos/' . $kursus->vidio) }}" type="video/mp4">
+                            Browser Anda tidak mendukung pemutaran video.
+                        </video>
                     @else
-                    <div class="text-gray-500">Belum ada video yang diunggah.</div>
+                        <p class="text-white text-sm">Belum ada video.</p>
                     @endif
                 </div>
-
                 <!-- Deskripsi -->
-                <div class="p-4 h-[297px] overflow-y-auto">
-                    <h3 class="text-lg font-semibold text-[#0E1212] mb-2">Deskripsi</h3>
-                    <p class="text-sm text-[#0E1212] whitespace-pre-line">
+                <div class="p-4 h-[200px] overflow-y-auto bg-white">
+                    <h3 class="text-lg font-semibold mb-2 text-gray-800">Deskripsi</h3>
+                    <p class="text-sm text-gray-700 whitespace-pre-line">
                         {{ $kursus->deskripsi }}
                     </p>
                 </div>
             </div>
 
-            <!-- KANAN: CARD COURSE LAIN -->
-            <div class="w-[372px] h-[401px] bg-white rounded-lg overflow-hidden shadow-md">
-                <img src="{{ $kursus->cover ? asset('uploads/covers/' . $kursus->cover) : asset('images/default-cover.jpg') }}"
-                    alt="Cover Course" class="w-full h-[180px] object-cover rounded-t-lg">
-                <div class="p-4">
-                    <h3 class="text-lg font-bold mb-1 leading-tight">{{ $kursus->judul_kursus }}</h3>
-                    <p class="text-sm text-gray-600 mb-2">{{ $kursus->instruktur }}</p>
-                    <div class="flex justify-end mb-4">
-                        <p class="text-black font-semibold">Rp{{ number_format($kursus->harga_kursus, 0, ',', '.') }}
-                        </p>
-                    </div>
-                    <div class="text-center">
-                        <button class="bg-[#F5B40D] text-white text-sm font-semibold rounded w-[150px] h-[50px]">
-                            {{ $kursus->jumlah_siswa }} Siswa
-                        </button>
+            <!-- Info Singkat -->
+            <div class="w-full lg:w-[370px] bg-white rounded-xl shadow border overflow-hidden">
+                <div class="w-full aspect-[3/2] bg-gray-200">
+                    <img src="{{ $kursus->cover ? asset('uploads/covers/' . $kursus->cover) : asset('images/default-cover.jpg') }}"
+                         alt="Cover Kursus"
+                         class="w-full h-full object-contain rounded-t-xl">
+                </div>
+                <div class="p-4 space-y-2">
+                    <h3 class="text-xl font-bold text-gray-800">{{ $kursus->judul_kursus }}</h3>
+                    <p class="text-sm text-gray-500">{{ $kursus->instruktur->name ?? '' }}</p>
+                    <div class="flex justify-between items-center mt-4">
+                        <span class="text-base font-bold text-green-600">
+                            Rp{{ number_format($kursus->harga_kursus, 0, ',', '.') }}
+                        </span>
+                        <span class="bg-yellow-500 text-white text-sm px-3 py-1 rounded-full">
+                            {{ $kursus->jumlah_siswa ?? 0 }} Siswa
+                        </span>
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- Header Materi di luar card -->
-<h2 class="text-xl font-bold text-[#0E1212] mb-3">Materi</h2>
-
-<!-- CARD MATERI -->
-<div class="w-[945px] h-[280px] bg-[#E8E6E6] rounded shadow p-6 overflow-hidden">
-    <div class="flex flex-col divide-y divide-gray-300">
-        @php
-        $materis = [
-            'Pengantar Pembelajaran' => 'Materi pengantar pembelajaran akan membahas tujuan kursus dan struktur umum pembelajaran.',
-            'Pengenalan Bahasa' => 'Pengenalan dasar tentang struktur bahasa dan kosakata umum yang digunakan.',
-            'Percakapan Dasar' => 'Materi berisi latihan percakapan sehari-hari seperti menyapa, bertanya arah, dan lainnya.',
-            'Keterampilan Berbicara & Menulis Menengah' => 'Latihan menulis kalimat kompleks dan berbicara secara spontan dengan struktur menengah.',
-        ];
-        @endphp
-
-        @foreach ($materis as $judul => $isi)
-        <details class="group bg-[#E8E6E6] py-3 cursor-pointer" style="padding-left: 0; padding-right: 0;">
-            <summary class="flex justify-between items-center list-none text-[#0E1212] font-semibold select-none px-2">
-                {{ $judul }}
-                <svg class="w-5 h-5 text-[#0E1212] group-open:rotate-180 transition-transform duration-300" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" >
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
-                </svg>
-            </summary>
-            <p class="mt-2 text-sm text-[#0E1212] px-2">
-                {{ $isi }}
-            </p>
-        </details>
-        @endforeach
-    </div>
-</div>
-
-
-        <!-- Tombol Kembali -->
-        <div class="flex justify-end mt-6">
-            <button class="bg-[#F5B40D] text-white text-sm font-semibold rounded w-[150px] h-[50px]">
-                + Materi
-            </button>
+        <!-- Tujuan Kursus -->
+        <div>
+            <h3 class="text-xl font-semibold text-gray-800 mb-2">🎯 Tujuan Kursus</h3>
+            <ul class="list-disc pl-5 text-gray-700 text-sm space-y-1">
+                @forelse($kursus->tujuan as $tujuan)
+                    <li>{{ $tujuan->deskripsi }}</li>
+                @empty
+                    <li class="text-gray-400 italic">Belum ada tujuan ditambahkan.</li>
+                @endforelse
+            </ul>
         </div>
 
+        <!-- Materi Kursus -->
+        <div>
+            <div class="flex justify-between items-center mb-3">
+                <h3 class="text-xl font-semibold text-gray-800">📚 Materi</h3>
+                <a href="{{ route('materi.create', $kursus->id) }}"
+                   class="bg-blue-600 hover:bg-blue-700 text-white text-sm font-semibold px-4 py-2 rounded-lg transition duration-200">
+                    + Tambah Materi
+                </a>
+            </div>
+
+            <div class="bg-gray-50 rounded-lg shadow p-4 max-h-[300px] overflow-y-auto">
+                @forelse ($kursus->materi as $materi)
+                    <details class="group py-2 cursor-pointer">
+                        <summary class="flex justify-between items-center text-gray-800 font-medium hover:text-blue-700">
+                            {{ $materi->judul }}
+                            <svg class="w-5 h-5 group-open:rotate-180 transition-transform text-gray-600" fill="none" stroke="currentColor"
+                                 stroke-width="2" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
+                            </svg>
+                        </summary>
+                        <div class="mt-2 ml-2 text-sm text-gray-700">
+                            <p>{{ $materi->deskripsi }}</p>
+                            @if ($materi->subMateri->count())
+                                <ul class="mt-2 list-disc list-inside">
+                                    @foreach ($materi->subMateri as $sub)
+                                        <li>{{ $sub->judul }}</li>
+                                    @endforeach
+                                </ul>
+                            @endif
+                        </div>
+                    </details>
+                @empty
+                    <p class="text-sm text-gray-500 italic">Belum ada materi yang ditambahkan.</p>
+                @endforelse
+            </div>
+        </div>
     </div>
 </div>
 @endsection

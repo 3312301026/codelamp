@@ -6,28 +6,23 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     */
     public function up(): void
     {
-        Schema::create('siswa', function (Blueprint $table) {
+        Schema::create('users', function (Blueprint $table) {
             $table->id();
-            $table->string('Nama_Lengkap');
-            $table->string('Nomor_Hp');
-            $table->string('Email')->unique();
+            $table->string('name');
+            $table->string('nomor_hp');
+            $table->enum('role', ['admin', 'instruktur', 'siswa'])->default('siswa');
+            $table->string('email')->unique();
+            $table->string('password');
             $table->timestamp('email_verified_at')->nullable();
-            $table->string('Kata_Sandi');
             $table->rememberToken();
             $table->timestamps();
         });
     }
 
-    /**
-     * Reverse the migrations.
-     */
     public function down(): void
     {
-        Schema::dropIfExists('siswa');
+        Schema::dropIfExists('users');
     }
 };

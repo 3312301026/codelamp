@@ -14,7 +14,7 @@
                 <h2 class="text-lg font-semibold text-gray-800">Catatan Pembayaran</h2>
             </div>
             <div class="flex items-center">
-                <button class="text-black py-1 px-3 rounded-md hover:bg-yellow-500 focus:outline-none">
+                <button class="bg-yellow-400 text-white py-1 px-3 rounded-md hover:bg-yellow-500 focus:outline-none">
                     <i class="fas fa-lightbulb mr-1"></i>
                 </button>
                 <button class="ml-2 text-gray-500 focus:outline-none">
@@ -68,88 +68,44 @@
                             </tr>
                         </thead>
                         <tbody class="bg-white divide-y divide-gray-200">
-                            <tr>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">1</td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">01/01/23</td>
-                                <td class="px-6 py-4 text-sm text-gray-500">Python Tingkat Dasar untuk Pemula</td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Arpendi, Spd</td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Rp 240.000</td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Virtual account</td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-green-500">Berhasil</td>
-                                <td class="px-6 py-4 whitespace-nowrap text-center text-sm">
-                                    <button class="btn btn-primary btn-sm lihat-btn" data-bs-toggle="modal"
-                                        data-bs-target="#detailModal" data-tanggal="01/01/23"
-                                        data-kursus="Python Tingkat Dasar untuk Pemula" data-instruktur="Arpendi, Spd"
-                                        data-harga="Rp 240.000" data-metode="Virtual account" data-status="Berhasil">
-                                        <i class="fas fa-eye"></i>
-                                    </button>
-                                    <button class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-2 rounded-r">
-                                        <i class="fas fa-trash-alt"></i>
-                                    </button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">2</td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">01/01/23</td>
-                                <td class="px-6 py-4 text-sm text-gray-500">Bahasa Inggris Sehari-hari untuk Percakapan</td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Arpendi, Spd</td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Rp 240.000</td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Shopeepay</td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-yellow-500">Tertunda</td>
-                                <td class="px-6 py-4 whitespace-nowrap text-center text-sm">
-                                    <button
-                                        class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-2 rounded-l lihat-btn"
-                                        data-bs-toggle="modal" data-bs-target="#detailModal" data-tanggal="01/01/23"
-                                        data-kursus="Bahasa Inggris Sehari-hari untuk Percakapan"
-                                        data-instruktur="Arpendi, Spd" data-harga="Rp 240.000" data-metode="Shopeepay"
-                                        data-status="Tertunda">
-                                        <i class="fas fa-eye"></i>
-                                    </button>
-                                    <button class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-2 rounded-r">
-                                        <i class="fas fa-trash-alt"></i>
-                                    </button>
-                                </td>
-                            </tr>
+                            @forelse($transaksis as $index => $transaksi)
+                                            <tr>
+                                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ $index + 1 }}</td>
+                                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                                    {{ \Carbon\Carbon::parse($transaksi->tanggal_transaksi)->format('d/m/y') }}</td>
+                                                <td class="px-6 py-4 text-sm text-gray-800">{{ $transaksi->kursus->judul_kursus ?? '-' }}
+                                                </td>
+                                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-800">
+                                                    {{ $transaksi->kursus->instruktur->name ?? '-' }}</td>
+                                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-800">Rp
+                                                    {{ number_format($transaksi->kursus->harga_kursus ?? 0, 0, ',', '.') }}</td>
+                                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-800">
+                                                    {{ $transaksi->metode_pembayaran ?? 'Virtual Account' }}</td>
+                                                <td
+                                                    class="px-6 py-4 whitespace-nowrap text-sm 
+                                {{ $transaksi->status == 'berhasil' ? 'text-green-500' : ($transaksi->status == 'tertunda' ? 'text-yellow-500' : 'text-red-500') }}">
+                                                    {{ ucfirst($transaksi->status) }}
+                                                </td>
+                                                <td class="px-6 py-4 whitespace-nowrap text-center text-sm">
+                                                    <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-2 rounded-l">
+                                                        <i class="fas fa-eye"></i>
+                                                    </button>
+                                                    <button class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-2 rounded-r">
+                                                        <i class="fas fa-trash-alt"></i>
+                                                    </button>
+                                                </td>
+                                            </tr>
+                            @empty
+                                <tr>
+                                    <td colspan="8" class="text-center text-gray-500 py-4">Tidak ada catatan transaksi.</td>
+                                </tr>
+                            @endforelse
                         </tbody>
+
                     </table>
                 </div>
             </div>
         </main>
     </div>
     </div>
-    <!-- Modal -->
-    <div class="modal fade" id="detailModal" tabindex="-1" aria-labelledby="detailModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered modal-lg">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="detailModalLabel">Detail Pembayaran</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Tutup"></button>
-                </div>
-                <div class="modal-body">
-                    <p><strong>Tanggal:</strong> <span id="modalTanggal"></span></p>
-                    <p><strong>Nama Kursus:</strong> <span id="modalKursus"></span></p>
-                    <p><strong>Instruktur:</strong> <span id="modalInstruktur"></span></p>
-                    <p><strong>Harga:</strong> <span id="modalHarga"></span></p>
-                    <p><strong>Metode:</strong> <span id="modalMetode"></span></p>
-                    <p><strong>Status:</strong> <span id="modalStatus"></span></p>
-                </div>
-            </div>
-        </div>
-    </div>
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            const buttons = document.querySelectorAll('.lihat-btn');
-            buttons.forEach(button => {
-                button.addEventListener('click', function () {
-                    document.getElementById('modalTanggal').textContent = this.dataset.tanggal;
-                    document.getElementById('modalKursus').textContent = this.dataset.kursus;
-                    document.getElementById('modalInstruktur').textContent = this.dataset.instruktur;
-                    document.getElementById('modalHarga').textContent = this.dataset.harga;
-                    document.getElementById('modalMetode').textContent = this.dataset.metode;
-                    document.getElementById('modalStatus').textContent = this.dataset.status;
-                });
-            });
-        });
-    </script>
-
 @endsection
