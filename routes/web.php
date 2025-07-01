@@ -100,20 +100,31 @@ Route::prefix('instruktur')->middleware(['auth', 'checkRole:instruktur'])->group
 // =====================================================
 // 🧑‍💼 Routes untuk Admin
 // =====================================================
-Route::prefix('admin')->group(function () {
-    Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
-    Route::get('/pengguna', [AdminController::class, 'listUsers'])->name('admin.users');
-    Route::get('/pengguna/tambah', [AdminController::class, 'createInstruktur'])->name('admin.instruktur.create');
-    Route::post('/pengguna/tambah', [AdminController::class, 'storeInstruktur'])->name('admin.instruktur.store');
-    Route::get('/pengguna/{id}/detail', [AdminController::class, 'detailInstruktur'])->name('admin.instruktur.detail');
-    Route::get('/admin/pengguna/{id}/edit', [AdminController::class, 'editInstruktur'])->name('admin.instruktur.edit');
-    Route::put('/admin/pengguna/{id}', [AdminController::class, 'updateInstruktur'])->name('admin.instruktur.update');
-    Route::delete('/admin/pengguna/{id}', [AdminController::class, 'destroyInstruktur'])->name('admin.instruktur.destroy');
-    Route::get('/siswa', [AdminController::class, 'listSiswa'])->name('admin.siswa');
-    Route::get('/siswa/{id}/detail', [AdminController::class, 'detailSiswa'])->name('admin.siswa.detail');
-    Route::get('/kursus', [AdminController::class, 'listKursus'])->name('admin.kursus');
-});
+Route::prefix('admin')->name('admin.')->group(function () {
+    Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('dashboard');
 
+    // Pengguna (Instruktur)
+    Route::get('/pengguna', [AdminController::class, 'listUsers'])->name('users');
+    Route::get('/pengguna/tambah', [AdminController::class, 'createInstruktur'])->name('instruktur.create');
+    Route::post('/pengguna/tambah', [AdminController::class, 'storeInstruktur'])->name('instruktur.store');
+    Route::get('/pengguna/{id}/detail', [AdminController::class, 'detailInstruktur'])->name('instruktur.detail');
+    Route::get('/pengguna/{id}/edit', [AdminController::class, 'editInstruktur'])->name('instruktur.edit');
+    Route::put('/pengguna/{id}', [AdminController::class, 'updateInstruktur'])->name('instruktur.update');
+    Route::delete('/pengguna/{id}', [AdminController::class, 'destroyInstruktur'])->name('instruktur.destroy');
+
+    // Siswa
+    Route::get('/siswa', [AdminController::class, 'listSiswa'])->name('siswa');
+    Route::get('/siswa/{id}/detail', [AdminController::class, 'detailSiswa'])->name('siswa.detail');
+
+    // Kursus
+    Route::get('/kursus', [AdminController::class, 'listKursus'])->name('kursus');
+    Route::get('/kursus/tambah', [AdminController::class, 'createKursus'])->name('kursus.create');
+    Route::post('/kursus/tambah', [AdminController::class, 'storeKursus'])->name('kursus.store');
+    Route::get('/kursus/{id}/detail', [AdminController::class, 'detailKursus'])->name('kursus.detail');
+    Route::get('/kursus/{id}/edit', [AdminController::class, 'editKursus'])->name('kursus.edit');
+    Route::put('/kursus/{id}', [AdminController::class, 'updateKursus'])->name('kursus.update');
+    Route::delete('/kursus/{id}', [AdminController::class, 'destroyKursus'])->name('kursus.destroy');
+});
 
 // =====================================================
 // 🧱 Tambahan dari Laravel Breeze (auth.php)

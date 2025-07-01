@@ -1,4 +1,5 @@
-@extends('layouts.instruktur')
+@extends($mode === 'admin' ? 'layouts.admin' : 'layouts.instruktur')
+
 @section('title', 'Detail Kursus')
 
 @section('content')
@@ -24,7 +25,6 @@
         <div class="flex flex-col lg:flex-row gap-6">
             <!-- Video + Deskripsi -->
             <div class="flex-1 bg-gray-100 rounded-lg overflow-hidden shadow">
-                <!-- Video -->
                 <div class="w-full aspect-video bg-black flex items-center justify-center">
                     @if ($kursus->vidio)
                         <video controls class="w-full h-full object-contain">
@@ -35,7 +35,6 @@
                         <p class="text-white text-sm">Belum ada video.</p>
                     @endif
                 </div>
-                <!-- Deskripsi -->
                 <div class="p-4 h-[200px] overflow-y-auto bg-white">
                     <h3 class="text-lg font-semibold mb-2 text-gray-800">Deskripsi</h3>
                     <p class="text-sm text-gray-700 whitespace-pre-line">
@@ -82,10 +81,12 @@
         <div>
             <div class="flex justify-between items-center mb-3">
                 <h3 class="text-xl font-semibold text-gray-800">📚 Materi</h3>
-                <a href="{{ route('materi.create', $kursus->id) }}"
-                   class="bg-blue-600 hover:bg-blue-700 text-white text-sm font-semibold px-4 py-2 rounded-lg transition duration-200">
-                    + Tambah Materi
-                </a>
+                @if ($mode !== 'admin')
+                    <a href="{{ route('materi.create', $kursus->id) }}"
+                       class="bg-blue-600 hover:bg-blue-700 text-white text-sm font-semibold px-4 py-2 rounded-lg transition duration-200">
+                        + Tambah Materi
+                    </a>
+                @endif
             </div>
 
             <div class="bg-gray-50 rounded-lg shadow p-4 max-h-[300px] overflow-y-auto">
