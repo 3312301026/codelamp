@@ -16,8 +16,14 @@ use App\Http\Controllers\InstrukturController;
 */
 
 // 🏠 Halaman Utama
-Route::get('/', fn() => view('homepage'))->name('homepage');
+Route::get('/', function () {
+    // Menghapus data sesi spesifik. Ganti 'nama_key_sesi_anda' dengan key yang ingin dihapus.
+    session()->forget('laravel_session');
+    session()->forget('XSRF-TOKEN'); // Contoh: menghapus pesan sukses setelah ditampilkan
+    session()->flush();
 
+    return view('homepage');
+})->name('homepage');
 
 // =====================================================
 // 🔐 Autentikasi (Login & Register - untuk semua role)
