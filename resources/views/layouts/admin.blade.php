@@ -49,7 +49,7 @@
                     </button>
                     <div id="submenuPengguna" class="ml-8 mt-1 space-y-1 hidden">
                         <a href="{{ route('admin.users') }}" class="block py-1 px-2 text-gray-300 hover:bg-[#1F2626] rounded">Instruktur</a>
-                        <a href="{{ route('admin.users') }}" class="block py-1 px-2 text-gray-300 hover:bg-[#1F2626] rounded">Siswa</a>
+                        <a href="{{ route('admin.siswa') }}" class="block py-1 px-2 text-gray-300 hover:bg-[#1F2626] rounded">Siswa</a>
                     </div>
                 </div>
 

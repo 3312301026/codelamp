@@ -109,6 +109,8 @@ Route::prefix('admin')->group(function () {
     Route::get('/admin/pengguna/{id}/edit', [AdminController::class, 'editInstruktur'])->name('admin.instruktur.edit');
     Route::put('/admin/pengguna/{id}', [AdminController::class, 'updateInstruktur'])->name('admin.instruktur.update');
     Route::delete('/admin/pengguna/{id}', [AdminController::class, 'destroyInstruktur'])->name('admin.instruktur.destroy');
+    Route::get('/siswa', [AdminController::class, 'listSiswa'])->name('admin.siswa');
+    Route::get('/siswa/{id}/detail', [AdminController::class, 'detailSiswa'])->name('admin.siswa.detail');
     Route::get('/kursus', [AdminController::class, 'listKursus'])->name('admin.kursus');
 });
 

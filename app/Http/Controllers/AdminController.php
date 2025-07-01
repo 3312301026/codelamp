@@ -109,4 +109,19 @@ class AdminController extends Controller
 
         return redirect()->route('admin.users')->with('success', 'Instruktur berhasil dihapus.');
     }
+
+    public function listSiswa()
+    {
+        $users = User::where('role', 'siswa')->get();
+        return view('admin.siswa.index', compact('users'));
+    }
+
+    public function detailSiswa($id)
+    {
+        $user = User::findOrFail($id);
+        return view('siswa.profil', [
+            'siswa' => $user,
+            'mode' => 'admin'
+        ]);
+    }
 }

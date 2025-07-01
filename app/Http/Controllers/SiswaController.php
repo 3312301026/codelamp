@@ -40,10 +40,14 @@ class SiswaController extends Controller
         return view('Siswa.dashboard', compact('siswa', 'kursus', 'leaderboard'));
     }
 
-    public function edit()
+        public function edit()
     {
         $siswa = Auth::user();
-        return view('Siswa.profil', compact('siswa'));
+
+        return view('Siswa.profil', [
+            'siswa' => $siswa,
+            'mode' => 'siswa', 
+        ]);
     }
 
     public function update(Request $request)
