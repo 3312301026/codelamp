@@ -15,7 +15,7 @@
         <div class="text-center mb-6">
             <div class="flex items-center justify-start space-x-2 px-6 py-3 bg-white">
                 <span class="font-bold text-lg" style="color:#F5B40D;">CodeLamp</span>
-                <img src="{{ asset('gambar/logo1.png') }}" alt="Logo" class="h-8 object-contain">
+                <img src="{{ asset('gambar/logo4.png') }}" alt="Logo" class="h-8 object-contain">
             </div>
             <p class="text-sm text-gray-600 mt-1">Masuk sebagai Siswa</p>
         </div>
