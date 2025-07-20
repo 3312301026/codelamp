@@ -100,36 +100,48 @@ Route::prefix('instruktur')->middleware(['auth', 'checkRole:instruktur'])->group
 // =====================================================
 // 🧑‍💼 Routes untuk Admin
 // =====================================================
-Route::prefix('admin')->name('admin.')->group(function () {
-    Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('dashboard');
+Route::prefix('admin')->middleware(['auth', 'checkRole:admin'])->group(function () {
+    Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
 
-    // Pengguna (Instruktur)
-    Route::get('/pengguna', [AdminController::class, 'listUsers'])->name('users');
-    Route::get('/pengguna/tambah', [AdminController::class, 'createInstruktur'])->name('instruktur.create');
-    Route::post('/pengguna/tambah', [AdminController::class, 'storeInstruktur'])->name('instruktur.store');
-    Route::get('/pengguna/{id}/detail', [AdminController::class, 'detailInstruktur'])->name('instruktur.detail');
-    Route::get('/pengguna/{id}/edit', [AdminController::class, 'editInstruktur'])->name('instruktur.edit');
-    Route::put('/pengguna/{id}', [AdminController::class, 'updateInstruktur'])->name('instruktur.update');
-    Route::delete('/pengguna/{id}', [AdminController::class, 'destroyInstruktur'])->name('instruktur.destroy');
+    // 👥 Pengguna
+    Route::get('/pengguna', [AdminController::class, 'listUsers'])->name('admin.users');
+    Route::get('/pengguna/instruktur', [AdminController::class, 'listInstruktur'])->name('admin.users.instruktur');
+    Route::get('/pengguna/siswa', [AdminController::class, 'listSiswa'])->name('admin.users.siswa');
 
-    // Siswa
-    Route::get('/siswa', [AdminController::class, 'listSiswa'])->name('siswa');
-    Route::get('/siswa/{id}/detail', [AdminController::class, 'detailSiswa'])->name('siswa.detail');
+    // CRUD Instruktur
+    Route::get('/instruktur', [AdminController::class, 'listInstruktur'])->name('admin.instruktur.index');
+    Route::get('/instruktur/create', [AdminController::class, 'createInstruktur'])->name('admin.instruktur.create');
+    Route::post('/instruktur', [AdminController::class, 'storeInstruktur'])->name('admin.instruktur.store');
+    Route::get('/instruktur/{id}/edit', [AdminController::class, 'editInstruktur'])->name('admin.instruktur.edit');
+    Route::put('/instruktur/{id}', [AdminController::class, 'updateInstruktur'])->name('admin.instruktur.update');
+    Route::delete('/instruktur/{id}', [AdminController::class, 'destroyInstruktur'])->name('admin.instruktur.destroy');
 
-    // Kursus
-    Route::get('/kursus', [AdminController::class, 'listKursus'])->name('kursus');
-    Route::get('/kursus/tambah', [AdminController::class, 'createKursus'])->name('kursus.create');
-    Route::post('/kursus/tambah', [AdminController::class, 'storeKursus'])->name('kursus.store');
-    Route::get('/kursus/{id}/detail', [AdminController::class, 'detailKursus'])->name('kursus.detail');
-    Route::get('/kursus/{id}/edit', [AdminController::class, 'editKursus'])->name('kursus.edit');
-    Route::put('/kursus/{id}', [AdminController::class, 'updateKursus'])->name('kursus.update');
-    Route::delete('/kursus/{id}', [AdminController::class, 'destroyKursus'])->name('kursus.destroy');
+    // CRUD Siswa
+    Route::get('/pengguna/siswa/create', [AdminController::class, 'createSiswa'])->name('admin.siswa.create');
+    Route::post('/pengguna/siswa', [AdminController::class, 'storeSiswa'])->name('admin.siswa.store');
+    Route::get('/pengguna/siswa/edit/{id}', [AdminController::class, 'editSiswa'])->name('admin.siswa.edit');
+    Route::put('/pengguna/siswa/update/{id}', [AdminController::class, 'updateSiswa'])->name('admin.siswa.update');
+    Route::delete('/pengguna/siswa/delete/{id}', [AdminController::class, 'destroySiswa'])->name('admin.siswa.destroy');
 
-    // Pembayaran (dummy sementara)
-    Route::get('/pembayaran', function () {
-        return view('admin.pembayaran');
-    })->name('pembayaran');
+    // CRUD Kursus (oleh admin)
+    Route::get('/kursus', [AdminController::class, 'listKursus'])->name('admin.kursus');
+    Route::get('/kursus/create', [AdminController::class, 'createKursus'])->name('admin.kursus.create');
+    Route::post('/kursus', [AdminController::class, 'storeKursus'])->name('admin.kursus.store');
+    Route::get('/kursus/edit/{id}', [AdminController::class, 'editKursus'])->name('admin.kursus.edit');
+    Route::put('/kursus/update/{id}', [AdminController::class, 'updateKursus'])->name('admin.kursus.update');
+    Route::delete('/kursus/delete/{id}', [AdminController::class, 'destroyKursus'])->name('admin.kursus.destroy');
+    Route::get('/kursus/{id}', [AdminController::class, 'showKursus'])->name('admin.kursus.show');
+    Route::patch('/admin/kursus/{id}/update-status', [KursusController::class, 'updateStatus'])
+        ->name('admin.kursus.updateStatus');
+
+    // Pembayaran
+    Route::get('/pembayaran', [PembayaranController::class, 'index'])->name('admin.pembayaran');
+    // Route::post('/pembayaran/{id}/konfirmasi', [PembayaranController::class, 'konfirmasi'])->name('admin.pembayaran.konfirmasi');
+    Route::put('/admin/pembayaran/{id}/update-status', [PembayaranController::class, 'updateStatus'])
+    ->name('admin.pembayaran.updateStatus');
 });
+
+
 
 // =====================================================
 // 🧱 Tambahan dari Laravel Breeze (auth.php)
