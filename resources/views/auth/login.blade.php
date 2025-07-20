@@ -13,10 +13,10 @@
 
     <div class="bg-white p-8 rounded-2xl shadow-2xl w-full max-w-md animate-fade-in">
         <div class="text-center mb-6">
-              <div class="flex items-center justify-center space-x-2 px-6 py-3 bg-white">
-                <span class="font-bold text-3xl" style="color:#F5B40D;">CodeLamp</span>
-                <img src="{{ asset('gambar/logo1.png') }}" alt="Logo" class="h-8 object-contain">
-            </div>
+            <h1 class="text-3xl font-bold text-yellow-500 flex items-center justify-center">
+                CodeLamp
+                <img src="{{ asset('gambar/logo4.png') }}" alt="Logo" class="w-12 md:w-15 mb-2">
+            </h1>
             <p class="text-sm text-gray-600 mt-2">Silahkan Login</p>
         </div>
 
@@ -78,7 +78,6 @@
                 opacity: 0;
                 transform: translateY(10px);
             }
-
             to {
                 opacity: 1;
                 transform: translateY(0);
