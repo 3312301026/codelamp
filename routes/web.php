@@ -7,7 +7,10 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\SiswaController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\TujuanController;
 use App\Http\Controllers\InstrukturController;
+use App\Http\Controllers\Siswa\SiswaKursusController;
+use App\Http\Controllers\Admin\PembayaranController;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,14 +19,8 @@ use App\Http\Controllers\InstrukturController;
 */
 
 // 🏠 Halaman Utama
-Route::get('/', function () {
-    // Menghapus data sesi spesifik. Ganti 'nama_key_sesi_anda' dengan key yang ingin dihapus.
-    session()->forget('laravel_session');
-    session()->forget('XSRF-TOKEN'); // Contoh: menghapus pesan sukses setelah ditampilkan
-    session()->flush();
+Route::get('/', fn() => view('homepage'))->name('homepage');
 
-    return view('homepage');
-})->name('homepage');
 
 // =====================================================
 // 🔐 Autentikasi (Login & Register - untuk semua role)
@@ -44,30 +41,28 @@ Route::post('/logout', [LoginController::class, 'logout'])->middleware('auth')->
 // 👨‍🎓 Routes untuk Siswa
 // =====================================================
 Route::prefix('siswa')->middleware(['auth', 'checkRole:siswa'])->group(function () {
+    // Dashboard
     Route::get('/dashboard', [SiswaController::class, 'dashboard'])->name('siswa.dashboard');
 
-    // Kursus
+    // Kursus Umum
     Route::get('/kursus', [SiswaController::class, 'listKursus'])->name('siswa.kursus');
     Route::get('/kursus/{id}', [SiswaController::class, 'tampilkanKursus'])->name('siswa.kursus.detail');
     Route::post('/kursus/{id}/beli', [SiswaController::class, 'beliKursus'])->name('siswa.beli.kursus');
+
+    // Kursus Saya (yang sudah dibeli)
+    Route::get('/kursus-saya', [SiswaKursusController::class, 'kursusSaya'])->name('siswa.kursus.saya');
+    Route::get('/kursus-saya/{id}', [SiswaKursusController::class, 'show'])->name('siswa.kursus.saya.detail');
 
     // Profil
     Route::get('/profil', [SiswaController::class, 'edit'])->name('siswa.profil');
     Route::put('/profil', [SiswaController::class, 'update'])->name('siswa.profil.update');
 
-    // Halaman Tambahan
-    Route::get('/ganti-sandi', fn() => view('siswa.ganti_sandi'))->name('siswa.ganti_sandi');
-    Route::get('/dibeli', [SiswaController::class, 'kursusDibeli'])->name('siswa.kursus_dibeli');
+    // Pembayaran
     Route::get('/pembayaran', [SiswaController::class, 'catatanPembayaran'])->name('siswa.pembayaran');
-    // Beli Kursus
-    Route::post('/kursus/{id}/beli', [SiswaController::class, 'beliKursus'])->name('siswa.beli.kursus');
-
-    // Form upload bukti pembayaran setelah beli
     Route::get('/pembayaran/upload/{id}', [SiswaController::class, 'formUploadBukti'])->name('siswa.pembayaran.form');
-
-    // Kirim bukti pembayaran
     Route::post('/pembayaran/upload/{id}', [SiswaController::class, 'uploadBuktiPembayaran'])->name('siswa.pembayaran.upload');
 });
+
 
 
 
@@ -93,7 +88,18 @@ Route::prefix('instruktur')->middleware(['auth', 'checkRole:instruktur'])->group
     // Materi Kursus
     Route::get('/kursus/{id}/materi/create', [KursusController::class, 'createMateri'])->name('materi.create');
     Route::post('/kursus/materi', [KursusController::class, 'storeMateri'])->name('materi.store');
+    Route::get('/kursus/materi/{materi}/edit', [KursusController::class, 'editMateri'])->name('materi.edit');
+    Route::patch('/kursus/materi/{materi}', [KursusController::class, 'updateMateri'])->name('materi.update');
+    Route::delete('/kursus/materi/{materi}', [KursusController::class, 'destroyMateri'])->name('materi.destroy');
+    Route::post('/tujuan', [TujuanController::class, 'store'])->name('tujuan.store');
+    Route::patch('/tujuan/{id}', [TujuanController::class, 'update'])->name('tujuan.update');
+    Route::delete('/tujuan/{id}', [TujuanController::class, 'destroy'])->name('tujuan.destroy');
+
+    // Pembayaran
+    Route::get('/pembayaran', [InstrukturController::class, 'pembayaran'])->name('instruktur.pembayaran');
+    Route::put('/pembayaran/{id}', [InstrukturController::class, 'updateStatusPembayaran'])->name('instruktur.pembayaran.update');
 });
+
 
 
 
